@@ -15,7 +15,7 @@ set laststatus=2                " make the last line where the status is two lin
 set background=dark             " Use colours that work well on a dark background (Console is usually black)
 set showmode                    " show the current mode
 set nocompatible                " be iMproved
-let mapleader="9"               " the <leader> key.
+let mapleader="9"               " the <leader> key.  
 syntax enable                   " turn syntax highlighting on by default
 
 " set the runtime path to include Vundle and initialize
@@ -25,7 +25,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'othree/html5.vim'
-Plugin 'Yggdroot/indentLine'
+"Plugin 'Yggdroot/indentLine'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
@@ -34,11 +34,12 @@ Plugin 'nvie/vim-flake8'
 Plugin 'mitsuhiko/vim-jinja'
 Plugin 'tpope/vim-sensible'
 Plugin 'posva/vim-vue'
-Plugin 'pangloss/vim-javascript'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tomasr/molokai'
 Plugin 'rust-lang/rust.vim'
-Plugin 'mxw/vim-jsx'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'pangloss/vim-javascript'
+Plugin 'Vimjas/vim-python-pep8-indent' " for using 'cc' back to the indented place
 call vundle#end()
 filetype plugin indent on
 """"
@@ -74,13 +75,12 @@ autocmd FileType html,css,htmljinja EmmetInstall
 let g:user_emmet_leader_key='<TAB>'
 """"
 
-" vim-javascript syntax settings
-let g:javascript_plugin_jsdoc=1
+" vim-jsx settings
+let g:jsx_ext_required = 0  " Allow JSX in normal JS files
 """"
 
-" vim-jsx settings
-let g:jsx_ext_required = 0
-""""
+" vim-python-pep8-indent settings
+let g:pymode_indent = 0
 
 " open a NERDTree automatically when vim starts up if no files were specified
 autocmd StdinReadPre * let s:std_in=1
@@ -96,6 +96,33 @@ autocmd BufWritePre *.{h,c,hpp,cpp,java,py,html,css,js} :%s/\s\+$//e
 "autocmd BufReadPost *.{h,c,hpp,cpp,java} :normal gg=G
 """"
 
+" ycm settings
+let g:ycm_server_python_interpreter='/usr/bin/python'
+let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
+let g:ycm_goto_buffer_command = 'horizontal-split'
+let g:ycm_autoclose_preview_window_after_completion = 1
+""""
+
+" custom bracket-completion
+function! FuncFin()
+  call feedkeys("o}\<ESC>=%$")
+endfunction
+
+function! CharMove()
+  let chr=''
+  echo "custom bracket-completion"
+  if getchar(1)
+    let chr = getchar()
+    call feedkeys(nr2char(chr))
+  endif
+  call feedkeys("\<F2>")
+endfunction
+
+imap @{ {<ESC>j<F2>
+nmap <silent> <F2><TAB> :call FuncFin()<CR>
+nmap <silent> <F2> :call CharMove()<CR>
+""""
+
 " bracket-completion
 au FileType html,htmljinja inoremap <buffer> {% {%  %}<LEFT><LEFT><LEFT>
 au FileType html,htmljinja inoremap <buffer> {{ {{  }}<LEFT><LEFT><LEFT>
@@ -105,7 +132,7 @@ au FileType h,c,hpp,cpp,java,javascript,rust inoremap <buffer> {; {<CR><END><CR>
 au FileType h,c,hpp,cpp,java,css,javascript,rust inoremap <buffer> {<SPACE> {<SPACE><SPACE>}<LEFT><LEFT>
 au FileType h,c,hpp,cpp,java,css,javascript,rust inoremap <buffer> {<END> {<SPACE><END><SPACE>}
 "au FileType h,c,hpp,cpp,java,css,javascript inoremap <buffer> < <<END>><LEFT>  
-au FileType h,c,hpp,cpp,java,css,javascript inoremap <buffer> for<TAB> for(int i=0; i<; ++i) {<CR><CR><END><CR>}<ESC><UP><UP><UP>2fi
+au FileType h,c,hpp,cpp,java,css,javascript inoremap <buffer> for<TAB> for(int i=0; i<; ++i) {<CR><END><CR>}<ESC><UP><UP>2fi
 """"
 
 " hot key
