@@ -1,12 +1,6 @@
 set disassembly-flavor intel
-#source ~/peda/peda.py
 source ~/.gef/gef.py
-
-
-define at
-	shell echo attach $(pidof -s $arg0) > /tmp/foo.gdb
-	source /tmp/foo.gdb
-end
+source ~/.gdbscript/gdb_at.py
 
 set pagination off
 gef config context.show_registers_raw 1

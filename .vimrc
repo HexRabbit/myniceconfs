@@ -48,6 +48,7 @@ Plugin 'dNitro/vim-pug-complete'
 Plugin 'neovimhaskell/haskell-vim'
 Plugin 'tomlion/vim-solidity'
 Plugin 'majutsushi/tagbar'
+Plugin 'francoiscabrol/ranger.vim'
 call vundle#end()
 filetype plugin indent on
 """"
@@ -175,11 +176,13 @@ function! CommentStr()
 endfunction
 """"
 
+" Ranger.vim settings
+
 " bracket-completion
 au FileType html,htmljinja inoremap <buffer> {% {%  %}<LEFT><LEFT><LEFT>
 au FileType html,htmljinja inoremap <buffer> {{ {{  }}<LEFT><LEFT><LEFT>
 au FileType javascript inoremap <buffer> ({<CR> ({<CR><END><CR>})<UP><END>
-au FileType h,c,hpp,cpp,java,css,javascript,rust inoremap <buffer> {<CR> {<CR><END><CR>}<UP><END>
+au FileType h,c,hpp,cpp,java,css,javascript,rust,python inoremap <buffer> {<CR> {<CR><END><CR>}<UP><END>
 au FileType h,c,hpp,cpp,java,javascript,rust inoremap <buffer> {; {<CR><END><CR>};<UP><END>
 au FileType h,c,hpp,cpp,java,css,javascript,rust inoremap <buffer> {<SPACE> {<SPACE><SPACE>}<LEFT><LEFT>
 au FileType h,c,hpp,cpp,java,css,javascript,rust inoremap <buffer> {<END> {<SPACE><END><SPACE>}
