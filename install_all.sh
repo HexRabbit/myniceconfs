@@ -22,9 +22,9 @@ else
 fi
 
 # vim
-git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+git clone --depth=1 https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
 cp .vimrc $HOME
-vim +PluginInstall +qall
+vim -E -s -u "$HOME/.vimrc" +PluginInstall +qall
 cp molokai.vim $HOME/.vim/bundle/molokai/colors/molokai.vim 
 
 # YouCompleteMe (not complete, checkout YCM github for installation details)
@@ -33,13 +33,14 @@ python3 $HOME/.vim/bundle/YouCompleteMe/install.py --clang-completer
 #`gcc -print-prog-name=cc1plus` -v
 
 # oh-my-zsh & completion
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-git clone https://github.com/zsh-users/zsh-completions $HOME/.oh-my-zsh/custom/plugins/zsh-completions
+git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh $HOME/.oh-my-zsh
+cp $HOME/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+sed -i "/export ZSH=/c export ZSH=$HOME/.oh-my-zsh" $HOME/.zshrc
 sed -i 's/ZSH_THEME=.*/ZSH_THEME="clean"/' $HOME/.zshrc
 sed -i 's/plugins=(\(.*\))/plugins=(\1 zsh-completions)/' $HOME/.zshrc
 sed -i '/plugins=/a autoload -U compinit && compinit' $HOME/.zshrc
+git clone https://github.com/zsh-users/zsh-completions $HOME/.oh-my-zsh/custom/plugins/zsh-completions
 chsh -s $(which zsh)
-source $HOME/.zshrc
 
 # tmux & powerline
 cp .tmux.conf $HOME
@@ -50,3 +51,5 @@ echo 'export PATH=$HOME/.local/bin:$PATH' >> $HOME/.zshrc
 git clone https://github.com/hugsy/gef $HOME/.gef
 cp .gdbinit $HOME
 cp gdbscripts $HOME/.gdbscripts -r
+
+exec /bin/zsh

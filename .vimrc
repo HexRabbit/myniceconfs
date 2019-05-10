@@ -1,4 +1,5 @@
 " Setting some decent VIM settings for programming
+set encoding=utf-8
 set mouse=n
 set number
 set smarttab
