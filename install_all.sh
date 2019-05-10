@@ -15,7 +15,7 @@ fi
 # preliminary
 if [ $USER == "root" ]; then
   apt-get update
-  apt-get install -y build-essential cmake python3-dev jython3-pip vim zsh tmux git curl sed 
+  apt-get install -y build-essential cmake python3-dev python3-pip vim zsh tmux git curl sed 
 else
   sudo apt-get update
   sudo apt-get install -y build-essential cmake python3-dev python3-pip vim zsh tmux git curl sed 
@@ -43,10 +43,10 @@ source $HOME/.zshrc
 
 # tmux & powerline
 cp .tmux.conf $HOME
-pip3 install --ignore-installed --upgrade --user powerline
+pip3 install --ignore-installed --upgrade --user powerline-status
 echo 'export PATH=$HOME/.local/bin:$PATH' >> $HOME/.zshrc
 
 # gef
-git clone https://github.com/hugsy/gef -o $HOME/.gef
+git clone https://github.com/hugsy/gef $HOME/.gef
 cp .gdbinit $HOME
 cp gdbscripts $HOME/.gdbscripts -r
