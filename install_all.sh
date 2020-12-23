@@ -27,21 +27,10 @@ $SUDO locale-gen en_US.UTF-8
 $SUDO update-locale LANG=en_US.UTF-8
 
 # vim
-git clone --depth=1 https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 cp .vimrc $HOME
-sed -i "s/Plugin 'Valloric\/YouCompleteMe'/\"@@@/" $HOME/.vimrc
 vim -E -s -u "$HOME/.vimrc" +PluginInstall +qall
-sed -i "s/\"@@@/Plugin 'Valloric\/YouCompleteMe'/" $HOME/.vimrc
 cp molokai.vim $HOME/.vim/bundle/molokai/colors/molokai.vim 
-
-# YouCompleteMe (not complete, checkout YCM github for installation details)
-git clone --depth=1 https://github.com/Valloric/YouCompleteMe $HOME/.vim/bundle/YouCompleteMe
-cd $HOME/.vim/bundle/YouCompleteMe
-git submodule update --init --recursive
-python3 ./install.py --clang-completer
-cd -
-#`gcc -print-prog-name=cc1` -v
-#`gcc -print-prog-name=cc1plus` -v
 
 # oh-my-zsh & completion
 git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh $HOME/.oh-my-zsh
@@ -59,8 +48,6 @@ pip3 install --ignore-installed --upgrade --user powerline-status
 echo 'export PATH=$HOME/.local/bin:$PATH' >> $HOME/.zshrc
 
 # gef
-git clone https://github.com/hugsy/gef $HOME/.gef
-cp .gdbinit $HOME
-cp gdbscripts $HOME/.gdbscripts -r
+wget -O ~/.gdbinit-gef.py -q http://gef.blah.cat/py
 
 exec /bin/zsh

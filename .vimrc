@@ -18,39 +18,42 @@ set ruler                       " show the cursor position all the time
 set laststatus=2                " make the last line where the status is two lines deep so you can see status always
 set background=dark             " Use colours that work well on a dark background (Console is usually black)
 set showmode                    " show the current mode
+set mouse=r                     " disable mouse scroll
 set nocompatible                " be iMproved
 let mapleader="9"               " the <leader> key.  
 syntax enable                   " turn syntax highlighting on by default
 
 " set the runtime path to include Vundle and initialize
 filetype on
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'mattn/emmet-vim'
-Plugin 'othree/html5.vim'
-"Plugin 'Yggdroot/indentLine'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'scrooloose/nerdtree'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'nvie/vim-flake8'
-Plugin 'mitsuhiko/vim-jinja'
-Plugin 'tpope/vim-sensible'
-Plugin 'posva/vim-vue'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'tomasr/molokai'
-Plugin 'rust-lang/rust.vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'pangloss/vim-javascript'
-Plugin 'Vimjas/vim-python-pep8-indent' " for using 'cc' back to the indented place
-Plugin 'digitaltoad/vim-pug'
-Plugin 'dNitro/vim-pug-complete'
-Plugin 'neovimhaskell/haskell-vim'
-Plugin 'tomlion/vim-solidity'
-Plugin 'majutsushi/tagbar'
-Plugin 'francoiscabrol/ranger.vim'
-call vundle#end()
+set rtp+=~/.vim/autoload/plug.vim
+call plug#begin()
+Plug 'mattn/emmet-vim'
+Plug 'othree/html5.vim'
+"Plug 'Yggdroot/indentLine'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'scrooloose/nerdtree'
+Plug 'altercation/vim-colors-solarized'
+Plug 'nvie/vim-flake8'
+Plug 'mitsuhiko/vim-jinja'
+Plug 'tpope/vim-sensible'
+Plug 'posva/vim-vue'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tomasr/molokai'
+Plug 'rust-lang/rust.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'Vimjas/vim-python-pep8-indent' " for using 'cc' back to the indented place
+Plug 'digitaltoad/vim-pug'
+Plug 'dNitro/vim-pug-complete'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'tomlion/vim-solidity'
+Plug 'majutsushi/tagbar'
+"Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 ./install.py --all' }
+"Plug 'prabirshrestha/vim-lsp'
+"Plug 'prabirshrestha/asyncomplete.vim'
+"Plug 'prabirshrestha/asyncomplete-lsp.vim'
+"Plug 'mattn/vim-lsp-settings' "not work on macos
+call plug#end()
 filetype plugin indent on
 """"
 
@@ -63,6 +66,37 @@ filetype plugin indent on
 "  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 "endfunc
 """"
+
+" if executable('pyls')
+"     " pip install python-language-server
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'pyls',
+"         \ 'cmd': {server_info->['pyls']},
+"         \ 'allowlist': ['python'],
+"         \ })
+" endif
+" 
+" function! s:on_lsp_buffer_enabled() abort
+"     setlocal omnifunc=lsp#complete
+"     setlocal signcolumn=yes
+"     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+"     nmap <buffer> gd <plug>(lsp-definition)
+"     nmap <buffer> gr <plug>(lsp-references)
+"     nmap <buffer> gi <plug>(lsp-implementation)
+"     nmap <buffer> gt <plug>(lsp-type-definition)
+"     nmap <buffer> <leader>rn <plug>(lsp-rename)
+"     nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+"     nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+"     nmap <buffer> K <plug>(lsp-hover)
+"     
+"     " refer to doc to add more commands
+" endfunction
+" 
+" augroup lsp_install
+"     au!
+"     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+"     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+" augroup END
 
 " solarized theme settings
 set t_Co=256
@@ -114,11 +148,14 @@ autocmd BufWritePre *.{h,c,hpp,cpp,java,py,html,css,js} :%s/\s\+$//e
 """"
 
 " ycm settings
-let g:ycm_server_python_interpreter='/usr/bin/python3'
-let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
+let g:ycm_server_python_interpreter='/usr/local/bin/python3'
+"let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 let g:ycm_goto_buffer_command = 'horizontal-split'
 let g:ycm_autoclose_preview_window_after_completion = 1
 """"
+
+" ranger.vim setting
+set shell=bash
 
 " custom bracket-completion
 function! FuncFin()
@@ -195,8 +232,6 @@ au FileType h,c,hpp,cpp,java,css,javascript inoremap <buffer> fork for (int k = 
 """"
 
 " hot key
-vnoremap <C-y> "+y
-nnoremap <C-p> "+p
 inoremap jk <ESC>
 cnoremap jk <ESC>
 inoremap Jk <ESC>

@@ -1,6 +1,7 @@
 set disassembly-flavor intel
-source ~/.gef/gef.py
+source ~/.gdbinit-gef.py
 source ~/.gdbscript/gdb_at.py
+source ~/.gdbscript/gdb_qemu.py
 
 set pagination off
 gef config context.show_registers_raw 1
