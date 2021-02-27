@@ -23,8 +23,9 @@ sed -i '/plugins=/a autoload -U compinit && compinit' $HOME/.zshrc
 git clone --depth=1 https://github.com/zsh-users/zsh-completions $HOME/.oh-my-zsh/custom/plugins/zsh-completions
 chsh -s $(which zsh)
 
-# tmux & powerline
+# tmux (force to use 256 color)
 cp .tmux.conf $HOME
+echo 'alias tmux="tmux -2"' >> $HOME/.zshrc
 
 # gef
 wget -O $HOME/.gdbinit-gef.py -q http://gef.blah.cat/py
