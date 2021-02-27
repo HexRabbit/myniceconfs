@@ -1,30 +1,11 @@
 #!/bin/bash
 
-SUDO=""
-
-# don't run script in root unless you know what you're doing
-if [ $USER == "root" ]; then
-  echo "You're running the script with user root,"
-  echo "so all the content will be installed for root, continue?"
-  select yn in "Yes" "No"; do
-      case $yn in
-          Yes ) break;;
-          No ) exit;;
-      esac
-  done
-fi
-
-if [ $USER != "root" ]; then
-  SUDO=sudo
-fi
+export DEBIAN_FRONTEND=noninteractive
+export TZ=Asia/Taipei
 
 # install dependency
-$SUDO apt-get update
-$SUDO apt-get install -y build-essential cmake python3-dev python3-pip vim-gtk3 zsh tmux git curl sed wget gdb
-
-# setup locale
-$SUDO locale-gen en_US.UTF-8
-$SUDO update-locale LANG=en_US.UTF-8
+sudo apt-get update
+sudo apt-get install -y build-essential cmake python3-dev python3-pip vim-gtk3 zsh tmux git curl sed wget gdb
 
 # vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -44,8 +25,6 @@ chsh -s $(which zsh)
 
 # tmux & powerline
 cp .tmux.conf $HOME
-pip3 install --ignore-installed --upgrade --user powerline-status
-echo 'export PATH=$HOME/.local/bin:$PATH' >> $HOME/.zshrc
 
 # gef
 wget -O $HOME/.gdbinit-gef.py -q http://gef.blah.cat/py
