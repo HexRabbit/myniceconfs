@@ -7,6 +7,10 @@ export TZ=Asia/Taipei
 sudo apt-get update
 sudo apt-get install -y build-essential cmake python3-dev python3-pip vim-gtk3 zsh tmux git curl sed wget gdb
 
+# configure system locale
+sudo locale-gen en_US.UTF-8
+sudo localectl set-locale LANG=en_US.UTF-8
+
 # vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 cp .vimrc $HOME
