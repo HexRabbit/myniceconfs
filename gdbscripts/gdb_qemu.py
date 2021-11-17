@@ -15,6 +15,6 @@ class Qemu(gdb.Command):
             raise gdb.GdbError('Need vmlinux to set architecture')
 
         port = args or 1234
-        gdb.execute(f'gef-remote -q :{port}')
+        gdb.execute(f'target remote :{port}')
 
 Qemu()
