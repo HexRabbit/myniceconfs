@@ -1,0 +1,7 @@
+{
+  "python.pythonPath": "python3",
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportWildcardImportFromLibrary": "none"
+  },
+  "clangd.path": "/Library/Developer/CommandLineTools/usr/bin/clangd"
+}

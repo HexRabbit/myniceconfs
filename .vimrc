@@ -48,55 +48,11 @@ Plug 'dNitro/vim-pug-complete'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'tomlion/vim-solidity'
 Plug 'majutsushi/tagbar'
-"Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 ./install.py --all' }
-"Plug 'prabirshrestha/vim-lsp'
-"Plug 'prabirshrestha/asyncomplete.vim'
-"Plug 'prabirshrestha/asyncomplete-lsp.vim'
-"Plug 'mattn/vim-lsp-settings' "not work on macos
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 filetype plugin indent on
 """"
-
-" Show syntax highlighting groups for word under cursor
-"nmap <C-S-P> :call <SID>SynStack()<CR>
-"function! <SID>SynStack()
-"  if !exists("*synstack")
-"    return
-"  endif
-"  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-"endfunc
-""""
-
-" if executable('pyls')
-"     " pip install python-language-server
-"     au User lsp_setup call lsp#register_server({
-"         \ 'name': 'pyls',
-"         \ 'cmd': {server_info->['pyls']},
-"         \ 'allowlist': ['python'],
-"         \ })
-" endif
-" 
-" function! s:on_lsp_buffer_enabled() abort
-"     setlocal omnifunc=lsp#complete
-"     setlocal signcolumn=yes
-"     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-"     nmap <buffer> gd <plug>(lsp-definition)
-"     nmap <buffer> gr <plug>(lsp-references)
-"     nmap <buffer> gi <plug>(lsp-implementation)
-"     nmap <buffer> gt <plug>(lsp-type-definition)
-"     nmap <buffer> <leader>rn <plug>(lsp-rename)
-"     nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
-"     nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
-"     nmap <buffer> K <plug>(lsp-hover)
-"     
-"     " refer to doc to add more commands
-" endfunction
-" 
-" augroup lsp_install
-"     au!
-"     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-"     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-" augroup END
 
 " solarized theme settings
 set t_Co=256
@@ -105,7 +61,6 @@ let g:solarized_termtrans=1
 let g:solarized_visibility="low"
 colorscheme molokai
 """"
-
 
 " airline settings
 let g:airline_theme='laederon'
@@ -147,15 +102,16 @@ autocmd BufWritePre *.{h,c,hpp,cpp,java,py,html,css,js} :%s/\s\+$//e
 "autocmd BufReadPost *.{h,c,hpp,cpp,java} :normal gg=G
 """"
 
-" ycm settings
-let g:ycm_server_python_interpreter='/usr/local/bin/python3'
-"let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
-let g:ycm_goto_buffer_command = 'horizontal-split'
-let g:ycm_autoclose_preview_window_after_completion = 1
-""""
+" coc.nvim setting
+let g:coc_global_extensions = [
+  \ "coc-pyright",
+  \ "coc-json",
+  \ "coc-clangd"
+  \ ]
 
-" ranger.vim setting
-set shell=bash
+" Use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+""""
 
 " custom bracket-completion
 function! FuncFin()
@@ -214,7 +170,12 @@ function! CommentStr()
 endfunction
 """"
 
-" Ranger.vim settings
+" LeaderF settings
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_PreviewInPopup = 1
+let g:Lf_ShortcutF = "<leader>ff"
+noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+""""
 
 " bracket-completion
 au FileType html,htmljinja inoremap <buffer> {% {%  %}<LEFT><LEFT><LEFT>

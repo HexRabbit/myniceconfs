@@ -16,10 +16,12 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 cp .vimrc $HOME
 vim -E -s -u "$HOME/.vimrc" +PlugInstall +qall
 cp molokai.vim $HOME/.vim/plugged/molokai/colors/molokai.vim 
+cp coc-setting.json "$HOME/.vim/coc-settings.json"
 
 # oh-my-zsh & completion
 git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh $HOME/.oh-my-zsh
-cp $HOME/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+cp $HOME/.zshrc $HOME/.zshrc.bak
+cp $HOME/.oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
 sed -i "/export ZSH=/c export ZSH=$HOME/.oh-my-zsh" $HOME/.zshrc
 sed -i 's/ZSH_THEME=.*/ZSH_THEME="clean"/' $HOME/.zshrc
 sed -i 's/plugins=(\(.*\))/plugins=(\1 zsh-completions)/' $HOME/.zshrc
