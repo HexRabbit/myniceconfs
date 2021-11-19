@@ -48,7 +48,7 @@ Plug 'dNitro/vim-pug-complete'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'tomlion/vim-solidity'
 Plug 'majutsushi/tagbar'
-Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+Plug 'Yggdroot/LeaderF' ", { 'do': ':LeaderfInstallCExtension' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 filetype plugin indent on
