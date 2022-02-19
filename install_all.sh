@@ -4,9 +4,12 @@ cd "$(dirname "$0")"
 export DEBIAN_FRONTEND=noninteractive
 export TZ=Asia/Taipei
 
+# use CCNS mirror
+sed -i 's/archive.ubuntu.com/ubuntu.ccns.ncku.edu.tw/g' /etc/apt/sources.list
+
 # install dependency
 sudo apt-get update
-sudo apt-get install -y build-essential cmake python3-dev python3-pip vim-gtk3 zsh tmux git curl sed wget gdb unzip
+sudo apt-get install -y build-essential cmake python3-dev python3-pip vim-gtk3 zsh tmux git curl wget gdb unzip locales
 
 # configure system locale
 sudo locale-gen en_US.UTF-8
@@ -24,13 +27,10 @@ git clone --depth=1 https://github.com/zsh-users/zsh-completions $HOME/.oh-my-zs
 chsh -s $(which zsh)
 
 # fnm (for coc.nvim plugins)
-curl -fsSL https://fnm.vercel.app/install | bash
-export PATH=/root/.fnm:$PATH
+curl -fsSL https://fnm.vercel.app/install | SHELL=zsh zsh
+export PATH=$HOME/.fnm:$PATH
 eval "`fnm env`"
 fnm install 17
-
-echo 'export PATH=/root/.fnm:$PATH' >> $HOME/.zshrc
-echo 'eval "`fnm env`"' >> $HOME/.zshrc
 
 # vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
