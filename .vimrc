@@ -5,10 +5,11 @@ set number
 set smarttab
 set tabstop=4
 set smartindent
-set expandtab shiftwidth=2 softtabstop=2
+set expandtab shiftwidth=2 softtabstop=-1 " make softtabstop same as shiftwidth
 set list listchars=tab:\¦\ |
 autocmd FileType css setlocal sw=1 ts=1 nonumber
-autocmd FileType python,solidity setlocal expandtab sw=4 softtabstop=4
+autocmd FileType python,solidity setlocal shiftwidth=4
+autocmd FileType make setlocal noexpandtab shiftwidth=4
 autocmd BufNewFile,BufRead *.pug set syntax=pug " solve vim-pug's syntax bug
 autocmd BufNewFile,BufRead *.sol set filetype=solidity
 set autoindent                  " set auto-indenting on for programming
