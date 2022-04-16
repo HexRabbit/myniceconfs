@@ -110,8 +110,11 @@ let g:coc_global_extensions = [
   \ "coc-clangd"
   \ ]
 
-" Use tab for trigger completion with characters ahead and navigate.
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" Use tab/up/down to trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <silent><expr> <UP>   pumvisible() ? "\<C-p>" : "\<UP>"
+inoremap <silent><expr> <DOWN> pumvisible() ? "\<C-n>" : "\<DOWN>"
+
 " Press enter to auto-import
 inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"

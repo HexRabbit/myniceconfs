@@ -23,6 +23,9 @@ sed -i "/export ZSH=/c export ZSH=$HOME/.oh-my-zsh" $HOME/.zshrc
 sed -i 's/ZSH_THEME=.*/ZSH_THEME="clean"/' $HOME/.zshrc
 sed -i 's/plugins=(\(.*\))/plugins=(\1 zsh-completions)/' $HOME/.zshrc
 sed -i '/plugins=/a autoload -U compinit && compinit' $HOME/.zshrc
+echo 'export HISTSIZE=1000000000' >> $HOME/.zshrc
+echo 'export SAVEHIST=$HISTSIZE' >> $HOME/.zshrc
+echo 'setopt EXTENDED_HISTORY' >> $HOME/.zshrc
 git clone --depth=1 https://github.com/zsh-users/zsh-completions $HOME/.oh-my-zsh/custom/plugins/zsh-completions
 chsh -s $(which zsh)
 
