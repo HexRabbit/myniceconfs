@@ -111,15 +111,30 @@ let g:coc_global_extensions = [
   \ ]
 
 " Use tab/up/down to trigger completion with characters ahead and navigate.
-inoremap <silent><expr> <TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <silent><expr> <UP>   pumvisible() ? "\<C-p>" : "\<UP>"
-inoremap <silent><expr> <DOWN> pumvisible() ? "\<C-n>" : "\<DOWN>"
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <silent><expr> <UP>
+      \ coc#pum#visible() ? coc#pum#prev(1) :
+      \ CheckBackspace() ? "\<UP>" :
+      \ coc#refresh()
+inoremap <silent><expr> <DOWN>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<DOWN>" :
+      \ coc#refresh()
 
 " Press enter to auto-import
-inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
+inoremap <silent><expr> <CR>
+      \ coc#pum#visible() ? coc#pum#confirm() :
+      \ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Goto hotkeys
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
